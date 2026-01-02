@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Contact | Ibrx</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Contact Ibrx – Network Engineer & Web Developer">
+  <meta name="author" content="Ibrx">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Language Toggle -->
+  <button onclick="toggleLang()" class="lang-toggle">AR / EN</button>
+
+  <header class="hero contact-hero">
+    <div class="hero-content">
+
+      <h1 class="en">Contact</h1>
+      <h1 class="ar hidden">تواصل</h1>
+
+      <p class="en">
+        Clear communication.<br>
+        Professional execution.
+      </p>
+
+      <p class="ar hidden">
+        تواصل واضح.<br>
+        تنفيذ احترافي.
+      </p>
+
+      <div class="services-list">
+        <h3 class="en">Services</h3>
+        <h3 class="ar hidden">الخدمات</h3>
+
+        <ul class="en">
+          <li>Network Design & Optimization</li>
+          <li>Internet Performance & Ping Improvement</li>
+          <li>5G / Fiber Setup & Band Locking</li>
+          <li>Structured Cabling (Cat6)</li>
+          <li>Clean & Fast Website Design</li>
+        </ul>
+
+        <ul class="ar hidden">
+          <li>تصميم وتحسين الشبكات</li>
+          <li>تحسين أداء الإنترنت والبنق</li>
+          <li>إعداد 5G والألياف وتثبيت النطاقات</li>
+          <li>تمديد كوابل Cat6 باحتراف</li>
+          <li>تصميم مواقع إلكترونية نظيفة وسريعة</li>
+        </ul>
+      </div>
+
+      <a href="https://wa.me/966505781824" target="_blank" class="btn-whatsapp">
+        <span class="en">💬 WhatsApp</span>
+        <span class="ar hidden">💬 واتساب</span>
+      </a>
+
+      <!-- زر رجوع (اختياري) -->
+      <a href="index.html" class="btn-primary" id="backBtn" style="margin-top:12px; display:inline-block;">
+        <span class="en">Back</span>
+        <span class="ar hidden">رجوع</span>
+      </a>
+
+    </div>
+  </header>
+
+  <footer class="site-footer">
+    <p>© 2026 Ibrx. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function getUrlLang() {
+      const p = new URLSearchParams(window.location.search);
+      const lang = p.get("lang");
+      return (lang === "ar" || lang === "en") ? lang : null;
+    }
+
+    function setLang(lang, syncUrl = true) {
+      localStorage.setItem("lang", lang);
+      applyLang(lang);
+
+      // حدّث زر الرجوع بحيث يرجع بنفس اللغة
+      const backBtn = document.getElementById("backBtn");
+      if (backBtn) backBtn.href = "index.html?lang=" + lang;
+
+      if (syncUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", lang);
+        history.replaceState({}, "", url);
+      }
+    }
+
+    function toggleLang() {
+      const current = localStorage.getItem("lang") || "en";
+      setLang(current === "en" ? "ar" : "en");
+    }
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir  = (lang === "ar") ? "rtl" : "ltr";
+
+      document.querySelectorAll(".en").forEach(el =>
+        el.classList.toggle("hidden", lang !== "en")
+      );
+      document.querySelectorAll(".ar").forEach(el =>
+        el.classList.toggle("hidden", lang !== "ar")
+      );
+
+      const btn = document.querySelector(".lang-toggle");
+      if (btn) btn.textContent = (lang === "en") ? "AR" : "EN";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlLang = getUrlLang();
+      const saved = localStorage.getItem("lang") || "en";
+      setLang(urlLang || saved, true);
+    });
+  </script>
+
+</body>
+</html>
