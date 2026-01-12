@@ -160,3 +160,13 @@ html[lang="ar"] .contact-item .value{
   .hero h1{ font-size: 40px; }
   .hero h2{ font-size: 18px; }
 }
+/* Micro fade animation (like before) */
+.fade-in{
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeIn{
+  to{ opacity: 1; }
+}
